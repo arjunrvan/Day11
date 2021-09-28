@@ -4,13 +4,15 @@
     width: 1000px;
     height: 350px;
     background-color: black;
-    margin: 0 auto;
+    margin: 50px auto;
     color: white;
     text-align: center;
     padding: 20px 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border-radius: 50px;
+   
 }
 
 #key-holder {
@@ -19,7 +21,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    border-radius: 20px;
+    
 }
 
 .animate {
