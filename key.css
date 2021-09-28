@@ -1,0 +1,16 @@
+* {margin: 0; padding: 0; box-sizing: border-box;}
+
+#container {
+    width: 900px;
+    height: 600px;
+    border: 1px solid black;
+    margin: 0 auto;
+    position: relative;
+}
+
+#boxy {
+    width: 100px;
+    height: 100px;
+    background-color: lightgreen;
+    position: absolute;
+}

@@ -1,0 +1,145 @@
+<html>
+    <head>
+        <style>
+            * {margin:0; padding:0}
+            #container {
+                width:800px;
+                height:500px;
+                border:1px solid black;
+                position:relative;
+                margin:0 auto;
+                overflow: hidden;
+            }
+
+            #box {
+                width:100px;
+                height:100px;
+                background-color:red;
+                position:absolute;
+                left:0px;
+                display:none;
+            }
+
+            li {
+                list-style-type: none;
+                width:60px;
+                height:60px;
+                border-radius: 5px;
+                background-color:red;
+                margin:10px 20px;
+                display:inline-block;
+                text-align: center;
+                line-height: 60px;
+                position: relative;
+            }
+
+            li:nth-child(1)::after {
+                content: '';
+                position:absolute;
+                right:0;
+                width:10px;
+                height:80px;
+                background-color:black;
+            }
+
+            .active {
+                animation: keyPlay 0.7s;
+            }
+
+            @keyframes  keyPlay {
+                0% {
+                    transform:  translate(0, 0);
+                }
+                50% {
+                    transform: translate(0, 10px);
+                }
+                100% {
+                    transform: translate(0, 0);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="box"></div>
+
+            <div id="pianoKey">
+                <li class="key">A</li>
+                <li class="key">S</li>
+                <li class="key">D</li>
+                <li class="key">F</li>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.core.min.js"></script>
+        <script>
+            var boxX = 0;
+            var boxY = 0;
+            var box = document.getElementById("box");
+            var keyList = {};
+            var soundList = { 
+                snd1: new Howl({src:['audio/1.mp3']}),  
+                snd2: new Howl({src:['audio/2.mp3']}),
+                snd3: new Howl({src:['audio/3.mp3']}),
+            }
+
+            var li = document.querySelectorAll('li');
+
+           
+          
+            document.addEventListener('keydown', function(evt){
+                // soundList.snd1.play();
+                keyList[evt.keyCode] = true;
+                console.log(keyList[39])
+                console.log(keyList)
+                switch(evt.keyCode) {
+                    case 39:
+                        console.log("GO RIGHT")
+                        if(boxX >= 800) {
+                            boxX = -100;
+                        }else {
+                            boxX += 10;
+                        }
+                        break;
+                    case 37:
+                        console.log("go left");
+                        boxX -= 10;
+                        break;
+
+                    case keyList[40]:
+                        console.log("GO DOWN");
+                        boxY += 10;
+                        break;
+
+                    case 65:
+                        soundList.snd1.play();
+                        li[0].className = "active";
+                        break;
+                    case 83:
+                        soundList.snd2.play();
+                        li[1].className = "active";
+                        break;
+                    default:
+                        console.log("No move");
+                }
+
+
+                box.style.left = boxX + 'px';
+                box.style.top = boxY + 'px';
+            })
+
+            document.addEventListener('keyup', function(evt){
+                delete keyList[evt.keyCode];
+
+                for(var i = 0; i < li.length; i ++) {
+                    li[i].removeAttribute('class');
+                }
+            })
+
+            setInterval(function(){
+               
+
+            },10);
+            
+        </script>
+    </body>
+</html>
