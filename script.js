@@ -53,12 +53,12 @@ var keyList = [
 ]
 
 for (i = 0; i < keyList.length; i++) {
-    var whiteTile = document.createElement('div');
+    var whiteTile = document.createElement('span');
 
     var pianoKeyTitle = document.createElement('h2');
     pianoKeyTitle.innerHTML = keyList[i].keyName;
 
-    // whiteTile.classList.add('white-key');
+    whiteTile.classList.add('white-key');
     whiteTile.appendChild(pianoKeyTitle);
 
     whiteTile.style.backgroundColor = 'white';
@@ -75,6 +75,8 @@ for (i = 0; i < keyList.length; i++) {
    
 }
 
+var keyId = document.querySelectorAll('span');
+
 keyCheck = [];
 
 function keyPressed (evt) {
@@ -84,21 +86,21 @@ function keyPressed (evt) {
         if (keyList[i].keyCode == evt.keyCode) {
             keyList[i].src.play();
             
-
-            var keyId = document.querySelectorAll('white-key')[number];
-            
-            keyId.classList.add("animate");
         }
     } 
+
+    var pos = keyList.map(function(e) { return e.keyCode; }).indexOf(evt.keyCode);
+            
+    keyId[pos].classList.add("animate");
+    keyId[pos].classList.remove("animateOut");
 }
 
 function keyRelease (evt) {
     delete keyCheck[evt.keyCode];
 
     var pos = keyList.map(function(e) { return e.keyCode; }).indexOf(evt.keyCode);
-    
-    var keyId = document.querySelectorAll('white-key')[pos];
 
-    keyId.classList.remove("animate");
+    keyId[pos].classList.add("animateOut");
+    keyId[pos].classList.remove("animate");
 }   
 
