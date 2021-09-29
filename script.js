@@ -1,11 +1,14 @@
+// Event Listeners to detect keydown and keyup
+
 window.addEventListener("keydown", keyPressed);
 window.addEventListener("keyup", keyRelease);
 
-
+// Variables to access DOM
 var keyHolder = document.getElementById('key-holder');
 
 var container = document.getElementById('container');
 
+// Storing required key info in object in array
 var keyList = [
     {
         keyName: "A",
@@ -63,6 +66,8 @@ var keyList = [
     },
 ]
 
+// Loop through keys to create required number of white tiles
+
 for (i = 0; i < keyList.length; i++) {
     var whiteTile = document.createElement('span');
 
@@ -72,26 +77,22 @@ for (i = 0; i < keyList.length; i++) {
     whiteTile.classList.add('white-key');
     whiteTile.appendChild(pianoKeyTitle);
 
-    whiteTile.style.backgroundColor = 'white';
-    whiteTile.style.fontSize = '30px';
-    whiteTile.style.color = 'red';
-    whiteTile.style.width = '80px';
-    whiteTile.style.height = '200px';
-    whiteTile.style.lineHeight = '200px';
-    whiteTile.style.borderRadius = '20px';
-    whiteTile.style.boxShadow = '3px 3px 3px rgba(255,255,255,0.5)';
-
     keyHolder.appendChild(whiteTile);
    
 }
 
-var keyId = document.querySelectorAll('span');
+// variable to access DOM for white tiles
+
+var keyId = document.querySelectorAll('.white-key');
 
 keyCheck = [];
 
+
+// Function for what happens when key is pressed
 function keyPressed (evt) {
     keyCheck[evt.keyCode] = true;
 
+    // Loop through to check which key index matches pressed key, and play that audio file
     for (i = 0; i < keyList.length; i++) {
         if (keyList[i].keyCode == evt.keyCode) {
             keyList[i].src.play();
@@ -99,20 +100,25 @@ function keyPressed (evt) {
         }
     } 
 
+    // Getting index of pressed key
     var pos = keyList.map(function(e) { return e.keyCode; }).indexOf(evt.keyCode);
             
+    // Animating button press
     keyId[pos].classList.add("animate");
     keyId[pos].classList.remove("animateOut");
 
+    // Changing bg color when button pressed and timeOut to release color
     keyId[pos].style.backgroundImage = keyList[pos].bgColor;
     setTimeout(function() {keyId[pos].style.backgroundImage = 'none';},1000);
 }
 
+// function for what happens when key is released
 function keyRelease (evt) {
     delete keyCheck[evt.keyCode];
 
     var pos = keyList.map(function(e) { return e.keyCode; }).indexOf(evt.keyCode);
 
+    // Animating button release
     keyId[pos].classList.add("animateOut");
     keyId[pos].classList.remove("animate");
 

@@ -25,6 +25,17 @@
     
 }
 
+.white-key {
+    background-color: white;
+    font-size: 30px;
+    color: red;
+    width: 80px;
+    height: 200px;
+    line-height: 200px;
+    border-radius: 20px;
+    box-shadow: 3px 3px 3px rgba(255,255,255,0.5);
+}
+
 .animate {
    
     transform: scale(0.8);
